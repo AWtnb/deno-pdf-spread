@@ -14,7 +14,7 @@ if ($LASTEXITCODE -eq 0) {
         }
         $n = "{0}.exe" -f $EXENAME
         if (Test-Path $n) {
-            Get-Item $n | Copy-Item -Destination $d -Force
+            Get-Item $n | Copy-Item -Destination $d -Force -ErrorAction Stop
             "COPIED {0} to: {1}" -f $n, $d | Write-Host -ForegroundColor Blue
         }
         else {
