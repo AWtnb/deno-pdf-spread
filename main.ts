@@ -122,7 +122,7 @@ const spread = async (
   return 0;
 };
 
-const main = () => {
+const main = async () => {
   const flags = parseArgs(Deno.args, {
     string: ["path"],
     boolean: ["asbook", "vertical", "opposite"],
@@ -133,14 +133,13 @@ const main = () => {
       opposite: false,
     },
   });
-  spread(
+  const result = await spread(
     flags.path,
     flags.vertical,
     flags.asbook,
     flags.opposite,
-  ).then((rc) => {
-    Deno.exit(rc);
-  });
+  )
+  Deno.exit(result);
 };
 
 main();
