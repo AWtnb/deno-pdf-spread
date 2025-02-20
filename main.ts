@@ -62,7 +62,7 @@ const toTransformationMatrixes = (
 const spread = async (
   path: string,
   vertical: boolean,
-  asbook: boolean,
+  singleTopPage: boolean,
   opposite: boolean,
 ): Promise<number> => {
   const data = await Deno.readFile(path);
@@ -80,7 +80,7 @@ const spread = async (
     vertical = !vertical;
   }
 
-  if (asbook) {
+  if (singleTopPage) {
     const head = pages.shift();
     if (head) {
       outDoc.addPage(head);
@@ -125,18 +125,18 @@ const spread = async (
 const main = async () => {
   const flags = parseArgs(Deno.args, {
     string: ["path"],
-    boolean: ["asbook", "vertical", "opposite"],
+    boolean: ["singleTopPage", "vertical", "opposite"],
     default: {
       path: "",
       vertical: false,
-      asbook: false,
+      singleTopPage: false,
       opposite: false,
     },
   });
   const result = await spread(
     flags.path,
     flags.vertical,
-    flags.asbook,
+    flags.singleTopPage,
     flags.opposite,
   )
   Deno.exit(result);
